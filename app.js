@@ -40,7 +40,7 @@ app.get('/', (req, res) => {
     res.send('foobar');
 });
 
-app.post('/api/', async (req, res) => {
+app.post('/api/register', async (req, res) => {
   try { console.log(req.body);
     const post = new Post();
    post.firstName = req.body.firstName;
