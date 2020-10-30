@@ -57,8 +57,8 @@ const routes: Routes = [
                 loadChildren: "./pages/tables/data-table-paginated/data-table.module#DataTableModule"
             },
             {
-              path: "tables/register",
-              loadChildren: "./pages/tables/data-table-paginated/data-table.module#DataTableModule"
+              path: "tables/users-table",
+              loadChildren: "./pages/tables/users-table/users-table.module#UsersTableModule"
           },
 
 

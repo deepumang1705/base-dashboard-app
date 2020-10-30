@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { PasswordValidator } from './password.validator';
 import { RegistrationService } from './registration.service';
+// import { User } from '../../../../../post'
 
 
 @Component({
@@ -10,6 +11,7 @@ import { RegistrationService } from './registration.service';
   styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent implements OnInit {
+
 
   get firstName() {
     return this.registrationForm.get('firstName');
@@ -33,9 +35,10 @@ onSubmit() {
   console.log(this.registrationForm.value);
   this._registrationService.register(this.registrationForm.value)
   .subscribe(
-    response => console.log('Success!', response),
+    response => {console.log('Success!')},
     error => console.log('Error!', error)
   )
+  this.registrationForm.reset();
 }
 
   ngOnInit() {

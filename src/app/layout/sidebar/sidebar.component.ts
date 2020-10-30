@@ -65,7 +65,11 @@ export class SidebarComponent implements OnInit {
                 {
                     title: 'Paginated Data Table',
                     route: '/tables/data-table-paginated'
-                }
+                },
+                {
+                  title: 'User Data Table',
+                  route: '/tables/users-table'
+              }
             ],
             visibility: 'inactive'
         },

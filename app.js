@@ -54,7 +54,6 @@ app.post('/api/register', async (req, res) => {
    } else {
      post.check = true;
    }
-console.log("gggf")
    await post.save();
    res.send({result: post});
   } catch (error) {
