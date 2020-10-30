@@ -24,7 +24,7 @@ const post_schema = new mongoose.Schema({
       type: String
   },
     phone: {
-      type: Number
+      type: String,
     },
     check: {
       type: Boolean,

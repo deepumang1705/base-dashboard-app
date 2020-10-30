@@ -49,10 +49,14 @@ app.post('/api/register', async (req, res) => {
    post.password = req.body.password;
    post.confirmPassword = req.body.confirmPassword;
    post.address = req.body.address;
-  post.check = req.body.check;
-
+   if(req.body.check===''){
+    post.check = false;
+   } else {
+     post.check = true;
+   }
+console.log("gggf")
    await post.save();
-   res.send(post);
+   res.send({result: post});
   } catch (error) {
       res.status(500)
   }
