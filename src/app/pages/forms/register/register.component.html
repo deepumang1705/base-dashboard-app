@@ -1,0 +1,95 @@
+
+ <div class="card">
+  <div class="card-body">
+    <h4 class="card-title">Register Here</h4>
+<div class="content__inner">
+<div class="card">
+<form  [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+  <div class="form-row">
+    <div class="col-md-6">
+      <div class="form-group">
+        <input [class.is-invalid]="firstName.invalid &&
+                                    firstName.touched "
+           type="text" class="form-control" placeholder="First Name" formControlName="firstName">
+        <i class="form-group__bar"></i>
+        <small [class.d-none]="firstName.valid ||
+                              firstName.untouched"
+                                >First name is required</small>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group">
+        <input type="text" class="form-control" placeholder="Last Name" formControlName="lastName">
+        <i class="form-group__bar"></i>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-row">
+    <div class="col-md-6">
+      <div class="form-group">
+        <input [class.is-invalid]="registrationForm.get('email').invalid &&
+                                    registrationForm.get('email').touched "
+          type="email" class="form-control" placeholder="Email Address" formControlName="email">
+        <i class="form-group__bar"></i>
+        <small [class.d-none]="registrationForm.get('email').valid ||
+        registrationForm.get('email').untouched"
+        >Email is required</small>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group">
+        <input [class.is-invalid]="registrationForm.get('password').invalid &&
+        registrationForm.get('password').touched " type="password" class="form-control" placeholder="Password" formControlName="password">
+        <i class="form-group__bar"></i>
+        <!-- <small [class.d-none]="registrationForm.get('password').valid ||
+        registrationForm.get('password').untouched"
+        >Password is required</small> -->
+
+        <div *ngIf="registrationForm.get('password').invalid
+                  && registrationForm.get('password').touched">
+             <small *ngIf="registrationForm.get('password').errors?.required">Password is required</small>
+             <small *ngIf="registrationForm.get('password').errors?.minlength ">Password must be at least 8 character</small>
+            </div>
+
+      </div>
+
+      </div>
+    </div>
+    <div class="form-row">
+    <div class="col-md-6">
+      <div class="form-group">
+        <input [class.is-invalid]="registrationForm.errors?.misMatch" type="password" class="form-control" placeholder="Confirm Password" formControlName="confirmPassword">
+        <i class="form-group__bar"></i>
+        <small *ngIf="registrationForm.errors?.misMatch">Password does not match</small>
+    </div>
+  </div>
+</div>
+  <div class="form-group">
+    <input type="text" class="form-control" placeholder="Address" formControlName="address">
+    <i class="form-group__bar"></i>
+  </div>
+  <div class="form-row">
+    <div class="col-md-6">
+      <div class="form-group">
+        <input type="text" class="form-control" placeholder="Phone Number" formControlName="phone">
+        <i class="form-group__bar"></i>
+      </div>
+    </div>
+
+
+  </div>
+  <div class="form-group">
+    <div class="checkbox">
+      <input type="checkbox" id="gridCheck" formControlName="check">
+      <label class="checkbox__label" for="gridCheck">
+        Check me out
+      </label>
+    </div>
+  </div>
+  <button [disabled]='!registrationForm.valid' type="submit" class="btn btn-primary">Create an Account</button>
+</form>
+</div>
+</div>
+
+
