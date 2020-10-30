@@ -7,7 +7,7 @@ import { environment } from 'src/environments/environment';
 })
 export class RegistrationService {
 
-  _url = environment.baseUrl + '/#/forms/register'
+  _url = environment.baseUrl + ''
   constructor(private _http : HttpClient) { }
 
   register(userData) {
