@@ -7,7 +7,7 @@ import { environment } from 'src/environments/environment';
 })
 export class RegistrationService {
 
-  _url = environment.baseUrl + '/api/register'
+  _url = environment.baseUrl + '/register'
   constructor(private _http : HttpClient) { }
 
   register(userData) {
