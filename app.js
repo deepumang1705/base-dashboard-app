@@ -36,12 +36,19 @@ app.use(express.static(path.join(__dirname, './dist/material-admin')));
 // app.use(express.static(path.join(__dirname ,'public')));
 
 //testing
-app.get('/', (req, res) => {
-    res.send('foobar');
+app.get('/api/users-table', async (req, res) => {
+  try {
+      console.log('success');
+    const users = await Post.find({})
+        res.send(users)
+  } catch (error) {
+    res.status(500)
+  }
 });
 
 app.post('/api/register', async (req, res) => {
-  try { console.log(req.body);
+  try {
+    console.log(req.body);
     const post = new Post();
    post.firstName = req.body.firstName;
    post.lastName = req.body.lastName;

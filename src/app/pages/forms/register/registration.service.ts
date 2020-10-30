@@ -14,4 +14,9 @@ export class RegistrationService {
     console.log('Message');
     return this._http.post<any>(this._url, userData)
   }
+
+  registerGet() {
+    console.log('Received');
+    return this._http.get<any>(this._url)
+  }
 }
