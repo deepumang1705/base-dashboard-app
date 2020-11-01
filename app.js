@@ -38,7 +38,7 @@ app.use(express.static(path.join(__dirname, './dist/material-admin')));
 //testing
 app.get('/api/users-table', async (req, res) => {
   try {
-      console.log('success');
+      console.log('Get success');
     const users = await Post.find({})
         res.send(users)
   } catch (error) {
@@ -56,6 +56,8 @@ app.post('/api/register', async (req, res) => {
    post.password = req.body.password;
    post.confirmPassword = req.body.confirmPassword;
    post.address = req.body.address;
+   post.check = req.body.check;
+   post.phone = req.body.phone;
    if(req.body.check===''){
     post.check = false;
    } else {

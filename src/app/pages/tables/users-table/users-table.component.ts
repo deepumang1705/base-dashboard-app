@@ -1,10 +1,13 @@
 import { Component, OnInit } from '@angular/core';
+import { environment } from 'src/environments/environment';
+
 
 @Component({
   selector: 'app-users-table',
   templateUrl: './users-table.component.html'
 })
 export class UsersTableComponent implements OnInit {
+
 
   options: DataTables.Settings = {};
   pageTitle: string = "Registered Users";
@@ -13,23 +16,19 @@ export class UsersTableComponent implements OnInit {
   columns: Array<any> = [
     {
       title: "ID",
-      name: "id"
+      name: "_id"
     },
     {
       title: "First Name",
-      name: "first_name"
+      name: "firstName"
     },
     {
       title: "Last Name",
-      name: "last_name"
+      name: "lastName"
     },
     {
       title: "Email Address",
       name: "email"
-    },
-    {
-      title: "Password",
-      name: "password"
     },
     {
       title: "Address",
@@ -38,12 +37,18 @@ export class UsersTableComponent implements OnInit {
     {
       title: "Contact",
       name: "phone"
+    },
+    {
+      title: "Check",
+      name: "check"
     }
+
   ];
 
   constructor() { }
 
   ngOnInit() {
+    console.log("ng init...")
     this.options = {
       paging: true,
       searching: true,
@@ -52,9 +57,8 @@ export class UsersTableComponent implements OnInit {
       processing: true,
       serverSide: true,
       ajax: function(parameters: any, callback) {
-        console.log(parameters)
         // make a regular ajax request using data.start and data.length
-        $.get('https://bogus-rest-api.herokuapp.com/users/', {
+        $.get(environment.baseUrl + '/users-table', {
           _limit: parameters.length,
           _page: Math.ceil(parameters.start/parameters.length) + 1,
           q: parameters.search.value
@@ -67,12 +71,13 @@ export class UsersTableComponent implements OnInit {
         });
       },
       columns: [
-        {data: "id"},
-        {data: "first_name"},
-        {data: "last_name"},
+        {data: "_id"},
+        {data: "firstName"},
+        {data: "lastName"},
         {data: "email"},
-        {data: "gender"},
-        {data: "ip_address"}
+        {data: "password"},
+        {data: "phone"},
+        {data: "check"}
       ]
   }
 }

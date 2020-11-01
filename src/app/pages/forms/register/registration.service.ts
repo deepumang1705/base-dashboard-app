@@ -11,8 +11,8 @@ export class RegistrationService {
   constructor(private _http : HttpClient) { }
 
   register(userData) {
-    console.log('Message');
-    return this._http.post<any>(this._url, userData)
+    console.log('Message', this._url);
+    return this._http.post<any>("/api/register", userData)
   }
 
   registerGet() {
