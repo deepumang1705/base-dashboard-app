@@ -12,10 +12,16 @@
       <table datatable class="table table-bordered" [dtOptions]="options">
         <thead>
           <tr>
-            <th *ngFor="let column of columns">{{ column.title }}</th>
+            <th *ngFor="let column of columns">{{ column.title }} </th>
           </tr>
+          <!-- <tr *ngFor="let column of columns">
+              <button type="button" class="btn btn-primary" [(ngModel)]="singleToggle" btnCheckbox btnCheckboxTrue="1" btnCheckboxFalse="0">
+                Single Toggle
+              </button>
+          </tr> -->
         </thead>
       </table>
     </div>
   </div>
 </div>
+

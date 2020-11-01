@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { data } from 'jquery';
 import { environment } from 'src/environments/environment';
 
 
@@ -7,6 +8,13 @@ import { environment } from 'src/environments/environment';
   templateUrl: './users-table.component.html'
 })
 export class UsersTableComponent implements OnInit {
+
+  singleToggle: any = '1';
+  checkbox: any = {
+    left: false,
+    middle: true, right: false
+  };
+  radio: any = 'middle';
 
 
   options: DataTables.Settings = {};
@@ -64,8 +72,8 @@ export class UsersTableComponent implements OnInit {
           q: parameters.search.value
         }, function(res) {
           callback({
-            recordsTotal: 200,
-            recordsFiltered: 200,
+            recordsTotal: res.length,
+            recordsFiltered: res.length,
             data: res,
           });
         });
