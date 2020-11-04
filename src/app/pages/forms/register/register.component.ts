@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { PasswordValidator } from './password.validator';
 import { RegistrationService } from './registration.service';
-// import { User } from '../../../../../post'
+
 
 
 @Component({

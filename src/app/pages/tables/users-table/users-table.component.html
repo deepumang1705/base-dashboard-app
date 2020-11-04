@@ -1,27 +1,44 @@
-
-<div class="content__inner">
-  <header class="content__title">
-    <h1>{{ pageTitle }}</h1>
-    <small>{{ pageSubTitle }}</small>
-  </header>
-
-  <div class="card">
-    <div class="card-body">
-
-
-      <table datatable class="table table-bordered" [dtOptions]="options">
+<div class="card">
+  <div class="card-body">
+    <div class="table-responsive">
+      <table
+        datatable
+        class="table table-bordered"
+        [dtTrigger]="dtTrigger"
+        [dtOptions]="options"
+      >
         <thead>
           <tr>
-            <th *ngFor="let column of columns">{{ column.title }} </th>
+            <th *ngFor="let column of columns">{{ column.title }}</th>
           </tr>
-          <!-- <tr *ngFor="let column of columns">
-              <button type="button" class="btn btn-primary" [(ngModel)]="singleToggle" btnCheckbox btnCheckboxTrue="1" btnCheckboxFalse="0">
-                Single Toggle
-              </button>
-          </tr> -->
         </thead>
+        <tbody>
+          <tr *ngFor="let row of userData">
+            <td>{{ row._id }}</td>
+
+            <td>{{ row.firstName }}</td>
+            <td>{{ row.lastName }}</td>
+            <td>{{ row.email }}</td>
+            <td>{{ row.phone }}</td>
+            <td *ngIf="row.check">
+              <button
+                class="btn btn-success"
+                (click)="deActivate(row._id, row.check)"
+              >
+                Active
+              </button>
+            </td>
+            <td *ngIf="!row.check">
+              <button
+                class="btn btn-secondary"
+                (click)="activate(row._id, row.check)"
+              >
+                Inactive
+              </button>
+            </td>
+          </tr>
+        </tbody>
       </table>
     </div>
   </div>
 </div>
-

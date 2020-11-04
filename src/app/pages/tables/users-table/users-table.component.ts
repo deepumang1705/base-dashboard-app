@@ -1,92 +1,103 @@
-import { Component, OnInit } from '@angular/core';
-import { data } from 'jquery';
-import { environment } from 'src/environments/environment';
+import { Subject } from "rxjs";
+import { data, post } from "jquery";
+import { environment } from "src/environments/environment";
+import { DataTableDirective } from "angular-datatables";
+import { RegistrationService } from "../../forms/register/registration.service";
 
+import {
+  AfterViewInit,
+  Component,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+} from "@angular/core";
 
 @Component({
-  selector: 'app-users-table',
-  templateUrl: './users-table.component.html'
+  selector: "app-users-table",
+  templateUrl: "./users-table.component.html",
 })
-export class UsersTableComponent implements OnInit {
-
-  singleToggle: any = '1';
-  checkbox: any = {
-    left: false,
-    middle: true, right: false
-  };
-  radio: any = 'middle';
-
-
-  options: DataTables.Settings = {};
+export class UsersTableComponent implements OnInit, AfterViewInit, OnDestroy {
+  @ViewChild(DataTableDirective, { static: false })
+  dtElement: DataTableDirective;
+  options: any = {};
+  dtTrigger: Subject<any> = new Subject();
   pageTitle: string = "Registered Users";
-  pageSubTitle: string = "Here is the paginated   data table of all registered Users";
+  pageSubTitle: string =
+    "Here is the paginated   data table of all registered Users";
+
+  userData = [];
+  id: string;
+  check: boolean;
 
   columns: Array<any> = [
     {
       title: "ID",
-      name: "_id"
+      name: "_id",
     },
     {
       title: "First Name",
-      name: "firstName"
+      name: "firstName",
     },
     {
       title: "Last Name",
-      name: "lastName"
+      name: "lastName",
     },
     {
       title: "Email Address",
-      name: "email"
-    },
-    {
-      title: "Address",
-      name: "address"
+      name: "email",
     },
     {
       title: "Contact",
-      name: "phone"
+      name: "phone",
     },
     {
-      title: "Check",
-      name: "check"
-    }
-
+      title: "Status",
+      name: "check",
+    },
   ];
 
-  constructor() { }
+  constructor(private service: RegistrationService) {}
 
   ngOnInit() {
-    console.log("ng init...")
-    this.options = {
-      paging: true,
-      searching: true,
-      ordering: true,
-      info: true,
-      processing: true,
-      serverSide: true,
-      ajax: function(parameters: any, callback) {
-        // make a regular ajax request using data.start and data.length
-        $.get(environment.baseUrl + '/users-table', {
-          _limit: parameters.length,
-          _page: Math.ceil(parameters.start/parameters.length) + 1,
-          q: parameters.search.value
-        }, function(res) {
-          callback({
-            recordsTotal: res.length,
-            recordsFiltered: res.length,
-            data: res,
-          });
-        });
-      },
-      columns: [
-        {data: "_id"},
-        {data: "firstName"},
-        {data: "lastName"},
-        {data: "email"},
-        {data: "password"},
-        {data: "phone"},
-        {data: "check"}
-      ]
+    this.service.registerGet().subscribe((data) => {
+      this.userData = data;
+    });
   }
-}
+
+  ngAfterViewInit() {
+    this.dtTrigger.next();
+  }
+
+  ngOnDestroy() {
+    // Do not forget to unsubscribe the event
+    this.dtTrigger.unsubscribe();
+  }
+
+  rerender() {
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      dtInstance.destroy();
+      this.dtTrigger.next();
+    });
+  }
+
+  deActivate(userId, Check) {
+    this.service.registerPut(userId, Check).subscribe(
+      (data) => {
+        console.log(data), this.ngOnInit();
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  }
+  activate(userId, Check) {
+    this.service.registerPut(userId, Check).subscribe(
+      (data) => {
+        console.log(data), this.ngOnInit();
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  }
 }
